@@ -1,19 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { Routes, Route } from 'react-router-dom';
 import Home from './components/layout/Home/Home';
 import Table from './components/features/Table/Table';
+import NotFound404 from './components/views/NotFound404/NotFound404';
+import Header from './components/views/Header/Header';
+import { Container } from 'react-bootstrap';
+import Footer from './components/views/Footer/Footer';
 
 const App = () => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/tables/:tableId' element={<Table />} />
-      </Routes>
-    </BrowserRouter>
-  </Provider>
+  <Container>
+    <Header />
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/tables/:Id' element={<Table />} />
+      <Route path='/*' element={<NotFound404 />} />
+    </Routes>
+    <Footer />
+  </Container>
 );
 
 export default App;
