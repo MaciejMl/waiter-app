@@ -1,10 +1,12 @@
-import { Container, Form } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 import styles from './Table.module.scss';
 import clsx from 'clsx';
 import Button from 'react-bootstrap/Button';
 import { Navigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAllTables } from '../../../redux/tablesRedux';
+import InputForm from '../../common/InputForm/InputForm';
 
 const Table = () => {
   const { Id } = useParams();
@@ -18,15 +20,19 @@ const Table = () => {
       <Form className={styles.form}>
         <h1>{tableData?.name}</h1>
         <p>
-          <span>Status: </span>
-          {tableData?.status}
+          <span className={styles.status}>Status: </span>
+          <Form.Select className={styles.select} aria-label='status select'>
+            <option value='1'>{tableData?.status}</option>
+          </Form.Select>
         </p>
         <p>
-          <span>People: </span>
-          {tableData?.people}/{tableData?.maxPeople}
+          <span className={styles.people}>People: </span>
+          <InputForm fieldValue={tableData?.people} />
+          /<InputForm fieldValue={tableData?.maxPeople} />
         </p>
         <p>
-          <span>Bill: </span>${tableData?.price}
+          <span className={styles.bill}>Bill: </span>$
+          <InputForm fieldValue={tableData?.price} />
         </p>
         <Button variant='primary'>Update</Button>
       </Form>

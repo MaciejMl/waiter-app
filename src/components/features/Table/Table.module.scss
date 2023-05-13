@@ -1,14 +1,35 @@
 .root {
   span {
     font-weight: bold;
-    margin-right: 15px;
+    align-self: center;
   }
 
   h1 {
     margin-bottom: 20px;
   }
 }
+
 .form {
   max-width: 300px;
   margin: 0 auto;
+
+  p {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.select {
+  max-width: 200px;
+}
+
+.status {
+  margin-right: 15px;
+}
+
+.people {
+  margin-right: 5px;
+}
+.bill {
+  margin-right: 38px;
 }
