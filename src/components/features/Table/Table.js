@@ -1,6 +1,7 @@
 import { Container, Form } from 'react-bootstrap';
 import styles from './Table.module.scss';
 import clsx from 'clsx';
+import Button from 'react-bootstrap/Button';
 
 const Table = () => {
   return (
@@ -16,6 +17,7 @@ const Table = () => {
         <p>
           <span>Bill: </span>$
         </p>
+        <Button variant='primary'>Update</Button>
       </Form>
     </Container>
   );
