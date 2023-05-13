@@ -3,10 +3,9 @@ import Button from 'react-bootstrap/Button';
 import styles from './TableStatus.module.scss';
 import Stack from 'react-bootstrap/Stack';
 import clsx from 'clsx';
-import { useNavigate, useParams } from 'react-router-dom';
-// import { getTableId } from '../../../redux/tablesRedux';
+import { useNavigate } from 'react-router-dom';
 
-const TableStatus = ({ name, status }) => {
+const TableStatus = ({ name, status, id }) => {
   const navigate = useNavigate();
 
   return (
@@ -18,7 +17,7 @@ const TableStatus = ({ name, status }) => {
           {status}
         </p>
         <Button
-          onClick={() => navigate(`/tables/`)}
+          onClick={() => navigate(`/tables/${id}`)}
           className='ms-auto'
           variant='primary'
         >

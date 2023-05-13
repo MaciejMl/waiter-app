@@ -2,34 +2,25 @@ import TableStatus from '../../features/TableStatus/TableStatus';
 import { Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchBooks } from '../../../redux/tablesRedux';
+import { fetchTables } from '../../../redux/tablesRedux';
 import { getAllTables } from '../../../redux/tablesRedux';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const tables = useSelector(getAllTables);
-  console.log(tables);
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const fetchTables = async () => {
-  //     try {
-  //       await dispatch(fetchBooks());
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchTables();
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchTables());
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchBooks());
-    setLoading(false);
-  }, [dispatch]);
+    if (tables.length) {
+      setLoading(false);
+    }
+  }, [tables]);
 
   if (loading) {
     return (
