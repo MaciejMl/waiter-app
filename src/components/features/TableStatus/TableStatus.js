@@ -4,6 +4,7 @@ import styles from './TableStatus.module.scss';
 import Stack from 'react-bootstrap/Stack';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const TableStatus = ({ name, status, id }) => {
   const navigate = useNavigate();
@@ -26,6 +27,12 @@ const TableStatus = ({ name, status, id }) => {
       </Stack>
     </Container>
   );
+};
+
+TableStatus.propTypes = {
+  name: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default TableStatus;
