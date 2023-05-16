@@ -1,30 +1,29 @@
 import { Container } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import styles from './Table.module.scss';
+import styles from './TableAdd.module.scss';
 import clsx from 'clsx';
 import Button from 'react-bootstrap/Button';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllTables } from '../../../redux/tablesRedux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import InputForm from '../../common/InputForm/InputForm';
 import { useState } from 'react';
-import { editTablesRequest } from '../../../redux/tablesRedux';
+import { addTableRequest } from '../../../redux/tablesRedux';
 import SelectForm from '../../common/SelectForm/SelectForm';
+import shortid from 'shortid';
 
-const Table = () => {
-  const { Id } = useParams();
-
-  const allData = useSelector(getAllTables);
-  const tableData = allData.find(
-    (table) => table.id.toString() === Id.toString()
-  );
-  const [status, setStatus] = useState(tableData?.status);
-  const [people, setPeople] = useState(tableData?.people);
-  const [maxPeople, setMaxPeople] = useState(tableData?.maxPeople);
-  const [price, setPrice] = useState(tableData?.price);
+const TableAdd = () => {
+  const [status, setStatus] = useState('Free');
+  const [people, setPeople] = useState(parseInt(0));
+  const [maxPeople, setMaxPeople] = useState(parseInt(4));
+  const [price, setPrice] = useState(parseInt(0));
+  const [name, setName] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleNameChange = (name) => {
+    setName(name);
+  };
 
   const handleStatusChange = (value) => {
     setStatus(value);
@@ -71,16 +70,24 @@ const Table = () => {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    dispatch(editTablesRequest({ status, people, maxPeople, price }, Id));
+    dispatch(
+      addTableRequest({ name, status, people, maxPeople, price, id: shortid() })
+    );
     navigate('/');
   };
-
-  if (!tableData) return <Navigate to='/' />;
 
   return (
     <Container className={clsx('my-4', styles.root)}>
       <Form onSubmit={handlesubmit} className={styles.form}>
-        <h1>{tableData?.name}</h1>
+        <h1>
+          <span className={styles.status}>Name: </span>
+          <InputForm
+            className={styles.nameInput}
+            defaultValue={name}
+            handleChange={handleNameChange}
+            placeholder={'Table name here'}
+          />
+        </h1>
         <p>
           <span className={styles.status}>Status: </span>
           <SelectForm defaultValue={status} handleChange={handleStatusChange} />
@@ -94,18 +101,17 @@ const Table = () => {
             handleChange={handleMaxPeopleChange}
           />
         </p>
-        {status === 'Busy' && (
-          <p>
-            <span className={styles.bill}>Bill: </span>$
-            <InputForm fieldValue={price} handleChange={handlePriceChange} />
-          </p>
-        )}
+        <p>
+          <span className={styles.bill}>Bill: </span>$
+          <InputForm fieldValue={price} handleChange={handlePriceChange} />
+        </p>
+
         <Button type='submit' variant='primary'>
-          Update
+          Add Table
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default Table;
+export default TableAdd;
