@@ -55,7 +55,7 @@ const TableAdd = () => {
   };
 
   const handlePriceChange = (value) => {
-    setPrice(parseInt(value));
+    setPrice(value);
   };
 
   const handleSubmit = (e) => {
@@ -90,7 +90,7 @@ const TableAdd = () => {
             min={'0'}
             max={maxPeople}
             handleChange={handlePeopleChange}
-            type='text'
+            type='number'
           />
           /
           <InputForm
@@ -98,7 +98,7 @@ const TableAdd = () => {
             min={'0'}
             max={'10'}
             handleChange={handleMaxPeopleChange}
-            type='text'
+            type='number'
           />
         </p>
         {status === 'Busy' && (
@@ -106,6 +106,7 @@ const TableAdd = () => {
             <span className={styles.bill}>Bill: </span>$
             <InputForm
               fieldValue={price.toString()}
+              type='text'
               handleChange={handlePriceChange}
             />
           </p>

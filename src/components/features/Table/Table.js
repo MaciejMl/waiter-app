@@ -66,11 +66,7 @@ const Table = () => {
   };
 
   const handlePriceChange = (value) => {
-    if (value === '') {
-      setPrice('0');
-    } else {
-      setPrice(value);
-    }
+    setPrice(value);
   };
 
   const handleSubmit = (e) => {
@@ -99,7 +95,7 @@ const Table = () => {
             min={'0'}
             max={maxPeople}
             handleChange={handlePeopleChange}
-            type='text'
+            type='number'
           />
           /
           <InputForm
@@ -107,7 +103,7 @@ const Table = () => {
             min={'0'}
             max={'10'}
             handleChange={handleMaxPeopleChange}
-            type='text'
+            type='number'
           />
         </p>
         {status === 'Busy' && (
@@ -115,6 +111,7 @@ const Table = () => {
             <span className={styles.bill}>Bill: </span>$
             <InputForm
               fieldValue={price.toString()}
+              type='text'
               handleChange={handlePriceChange}
             />
           </p>
