@@ -4,17 +4,17 @@
       "id": 1,
       "name": "Table 1",
       "status": "Reserved",
-      "people": 1,
-      "maxPeople": 3,
-      "price": 10
+      "people": 2,
+      "maxPeople": 2,
+      "price": 0
     },
     {
       "id": 2,
       "name": "Table 2",
-      "status": "Busy",
-      "people": 2,
+      "status": "Free",
+      "people": 0,
       "maxPeople": 4,
-      "price": 40
+      "price": 0
     },
     {
       "id": 3,

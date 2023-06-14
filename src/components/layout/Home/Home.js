@@ -6,6 +6,7 @@ import { fetchTables } from '../../../redux/tablesRedux';
 import { getAllTables } from '../../../redux/tablesRedux';
 import { useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
+import { useCallback } from 'react';
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -13,9 +14,13 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const memoizedFetchTables = useCallback(() => {
     dispatch(fetchTables());
   }, [dispatch]);
+
+  useEffect(() => {
+    memoizedFetchTables();
+  }, [memoizedFetchTables]);
 
   useEffect(() => {
     if (tables.length) {

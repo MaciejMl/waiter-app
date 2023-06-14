@@ -19,11 +19,14 @@ export const updateTables = (payload) => ({ type: UPDATE_TABLES, payload });
 export const editTables = (payload) => ({ type: EDIT_TABLES, payload });
 export const addTable = (payload) => ({ type: ADD_TABLE, payload });
 export const removeTable = (payload) => ({ type: REMOVE_TABLE, payload });
+
 export const fetchTables = () => {
   return (dispatch) => {
     fetch(`${API_URL}/tables`)
       .then((res) => res.json())
-      .then((tables) => dispatch(updateTables(tables)));
+      .then((tables) => {
+        dispatch(updateTables(tables));
+      });
   };
 };
 

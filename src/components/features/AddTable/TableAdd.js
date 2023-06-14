@@ -37,30 +37,20 @@ const TableAdd = () => {
 
   const handlePeopleChange = (value) => {
     const newPeople = parseInt(value);
-    if (newPeople >= 0 && newPeople <= 10 && newPeople <= maxPeople) {
-      setPeople(newPeople);
-      if (newPeople > maxPeople) {
-        setMaxPeople(newPeople);
-      }
-    } else if (newPeople > 10) {
-      setPeople(10);
-    } else if (newPeople < 0) {
-      setPeople(0);
+    if (newPeople <= parseInt(maxPeople) && newPeople >= 0) {
+      setPeople(value);
+    } else {
+      setPeople(maxPeople);
     }
   };
 
   const handleMaxPeopleChange = (value) => {
     const newMaxPeople = parseInt(value);
-    if (newMaxPeople >= 0 && newMaxPeople <= 10 && newMaxPeople >= people) {
-      setMaxPeople(newMaxPeople);
-    } else if (newMaxPeople > 10) {
-      setMaxPeople(10);
-    } else if (newMaxPeople < 0) {
-      setMaxPeople(0);
+    if (newMaxPeople >= 0 && newMaxPeople <= 10) {
+      setMaxPeople(value);
     }
-    if (people > newMaxPeople) {
+    if (newMaxPeople < parseInt(people)) {
       setPeople(newMaxPeople);
-      setMaxPeople(newMaxPeople);
     }
   };
 
@@ -68,7 +58,7 @@ const TableAdd = () => {
     setPrice(parseInt(value));
   };
 
-  const handlesubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
       addTableRequest({ name, status, people, maxPeople, price, id: shortid() })
@@ -78,14 +68,15 @@ const TableAdd = () => {
 
   return (
     <Container className={clsx('my-4', styles.root)}>
-      <Form onSubmit={handlesubmit} className={styles.form}>
+      <Form onSubmit={handleSubmit} className={styles.form}>
         <h1>
           <span className={styles.status}>Name: </span>
           <InputForm
             className={styles.nameInput}
-            defaultValue={name}
+            fieldValue={name}
             handleChange={handleNameChange}
             placeholder={'Table name here'}
+            type={'text'}
           />
         </h1>
         <p>
@@ -94,17 +85,31 @@ const TableAdd = () => {
         </p>
         <p>
           <span className={styles.people}>People: </span>
-          <InputForm fieldValue={people} handleChange={handlePeopleChange} />
+          <InputForm
+            fieldValue={people}
+            min={'0'}
+            max={maxPeople}
+            handleChange={handlePeopleChange}
+            type='text'
+          />
           /
           <InputForm
             fieldValue={maxPeople}
+            min={'0'}
+            max={'10'}
             handleChange={handleMaxPeopleChange}
+            type='text'
           />
         </p>
-        <p>
-          <span className={styles.bill}>Bill: </span>$
-          <InputForm fieldValue={price} handleChange={handlePriceChange} />
-        </p>
+        {status === 'Busy' && (
+          <p>
+            <span className={styles.bill}>Bill: </span>$
+            <InputForm
+              fieldValue={price.toString()}
+              handleChange={handlePriceChange}
+            />
+          </p>
+        )}
 
         <Button type='submit' variant='primary'>
           Add Table

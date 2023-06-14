@@ -1,27 +1,35 @@
-import styles from './InputForm.module.scss';
-import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import styles from './InputForm.module.scss';
 
-const InputForm = ({ fieldValue, handleChange, placeholder, className }) => {
-  const [value, setValue] = useState(fieldValue);
-
+const InputForm = ({
+  fieldValue,
+  handleChange,
+  placeholder,
+  className,
+  min,
+  max,
+  type,
+}) => {
   const handleInputChange = (e) => {
-    setValue(e.target.value);
-    handleChange(e.target.value);
+    const inputValue = e.target.value;
+    handleChange(inputValue);
   };
 
   return (
     <>
-      <Form.Label htmlFor='inputValues'></Form.Label>
-      <Form.Control
+      <label htmlFor='inputValues'></label>
+      <input
         className={clsx(styles.root, className)}
-        type='text'
+        type={type}
+        inputMode={type === 'text' ? 'text' : 'numeric'}
+        min={min}
+        max={max}
         id='value'
         aria-describedby='value field'
         placeholder={placeholder}
-        value={value}
+        value={fieldValue}
         onChange={handleInputChange}
       />
     </>
@@ -34,10 +42,16 @@ InputForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   className: PropTypes.string,
+  min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  type: PropTypes.string,
 };
 
 InputForm.defaultProps = {
   fieldValue: '',
+  min: '',
+  max: '',
+  type: 'text',
 };
 
 export default InputForm;
