@@ -81,7 +81,7 @@ const TableAdd = () => {
         </h1>
         <p>
           <span className={styles.status}>Status: </span>
-          <SelectForm defaultValue={status} handleChange={handleStatusChange} />
+          <SelectForm value={status} handleChange={handleStatusChange} />
         </p>
         <p>
           <span className={styles.people}>People: </span>

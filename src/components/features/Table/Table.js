@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import Button from 'react-bootstrap/Button';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTables } from '../../../redux/tablesRedux';
+import { getTableId } from '../../../redux/tablesRedux';
 import InputForm from '../../common/InputForm/InputForm';
 import { useState, useEffect } from 'react';
 import { editTablesRequest } from '../../../redux/tablesRedux';
@@ -14,10 +14,7 @@ import SelectForm from '../../common/SelectForm/SelectForm';
 const Table = () => {
   const { Id } = useParams();
 
-  const allData = useSelector(getAllTables);
-  const tableData = allData.find(
-    (table) => table.id.toString() === Id.toString()
-  );
+  const tableData = useSelector((state) => getTableId(state, Id));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,7 +81,7 @@ const Table = () => {
         <p>
           <span className={styles.status}>Status: </span>
           <SelectForm
-            defaultValue={tableData?.status}
+            value={tableData?.status}
             handleChange={handleStatusChange}
           />
         </p>

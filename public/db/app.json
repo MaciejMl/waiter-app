@@ -39,6 +39,22 @@
       "people": 0,
       "maxPeople": 4,
       "price": 0
+    },
+    {
+      "name": "mlynki",
+      "status": "Reserved",
+      "people": "8",
+      "maxPeople": "10",
+      "price": 0,
+      "id": "CNyPZnMn-"
+    },
+    {
+      "name": "Spare Table",
+      "status": "Cleaning",
+      "people": 0,
+      "maxPeople": 4,
+      "price": 0,
+      "id": "DqsfRjQv6"
     }
   ]
 }

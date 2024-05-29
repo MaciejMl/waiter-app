@@ -4,7 +4,7 @@ import { API_URL } from '../config';
 //selectors
 export const getAllTables = (statePart) => statePart.tables;
 export const getTableId = ({ tables }, tableId) => {
-  return tables.find((table) => table.id === tableId);
+  return tables.find((table) => table.id.toString() === tableId.toString());
 };
 
 // actions

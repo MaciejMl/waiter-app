@@ -1,14 +1,11 @@
 import styles from './SelectForm.module.scss';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const SelectForm = ({ defaultValue, handleChange }) => {
-  const [value, setValue] = useState(defaultValue);
-
+const SelectForm = ({ value, handleChange }) => {
   const handleInputChange = (e) => {
-    setValue(e.target.value);
-    handleChange(e.target.value);
+    const inputValue = e.target.value;
+    handleChange(inputValue);
   };
 
   const statusOptions = ['Free', 'Busy', 'Reserved', 'Cleaning'];
@@ -32,7 +29,7 @@ const SelectForm = ({ defaultValue, handleChange }) => {
 };
 
 SelectForm.propTypes = {
-  defaultValue: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 
